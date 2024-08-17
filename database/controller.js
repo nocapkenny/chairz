@@ -1,8 +1,9 @@
 const fs = require("fs")
 // Путь до папки с картинками
-const pathFile = __dirname + ''
+const pathFile = __dirname 
 // папка в которую сохранять
-const directoryName = '/images/'
+const directoryName = 'images'
+
 
 function deleteFile(name) {
   if(!fs.existsSync(pathFile + name)) return
@@ -41,7 +42,7 @@ class Controller {
     }
     if (req.files) {
       createFile(newProduct.id, req.files.image)
-      newProduct.image = directoryName + newProduct.id + req.files.image.name
+      newProduct.image = "../../database" + directoryName + newProduct.id + req.files.image.name
     } else {
       newProduct.image = ""
     }
@@ -64,7 +65,7 @@ class Controller {
         if (product.image) {
           deleteFile(product.image)
           createFile(product.id, req.files.image)
-          product.image = directoryName + product.id + req.files.image.name
+          product.image = "../../database" + directoryName + product.id + req.files.image.name
         }
         product.title = title
         product.price = price

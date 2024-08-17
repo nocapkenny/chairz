@@ -9,7 +9,7 @@ const productsStore = useProductsStore();
 <template>
   <div
     v-if="!productsStore.products.products && !productsStore.isLoading"
-    class="container container__void"
+    class="container container--void"
   >
     <Void />
   </div>
@@ -38,7 +38,7 @@ const productsStore = useProductsStore();
   height: 100vh;
   width: 100vw;
   position: fixed;
-  margin-left: 500px;
+  margin-left: 480px;
   text-align: center;
   top: 0;
   left: 0;
@@ -46,17 +46,20 @@ const productsStore = useProductsStore();
   padding-right: 500px;
   z-index: 999;
 }
-.container__void {
+.container--void {
   background-color: rgba(233, 233, 233, 1);
+  z-index: 1;
 }
 .products__inner {
   background-color: rgba(233, 233, 233, 1);
-  margin-left: 500px;
+  margin-left: 480px;
   padding-left: 40px;
   padding-bottom: 110px;
   padding-top: 50px;
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
+  z-index: 1;
+  min-height: 100vh;
 }
 </style>

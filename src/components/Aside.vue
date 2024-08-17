@@ -55,7 +55,6 @@ const putData = async () => {
   }
   errorName.value = "";
   errorPrice.value = "";
-
   const formData = {
     id: productId.value,
     title: productName.value,
@@ -64,7 +63,8 @@ const putData = async () => {
     image: productImg.value,
   };
 
-  await productsStore.putProducts(formData).then(clearForm())
+  await productsStore.putProducts(formData)
+  clearForm()
 };
 
 const clearForm = () => {
@@ -82,7 +82,7 @@ const checkEdit = () => {
     productName.value = productsStore.editingProduct[0].title;
     productPrice.value = productsStore.editingProduct[0].price;
     productDescr.value = productsStore.editingProduct[0].description;
-    // productImg.value = productsStore.editingProduct[0].image;
+    productImg.value = productsStore.editingProduct[0].image;
   } else {
     clearForm();
   }
@@ -122,7 +122,7 @@ watch(
           "
           placeholder="Название*"
         />
-        <p class="error">{{ errorName === "1" ? "" : errorName }}</p>
+        <p v-if="errorName && errorName !== '1'" :class="productName ? 'error--hidden' : 'error'">{{ errorName }}</p>
         <input
           v-model="productPrice"
           type="number"
@@ -136,7 +136,7 @@ watch(
           "
           placeholder="Цена*"
         />
-        <p class="error">{{ errorPrice === "1" ? "" : errorPrice }}</p>
+        <p v-if="errorPrice && errorPrice !== '1'" class="error">{{ errorPrice }}</p>
         <label
           :class="
             productImg
@@ -199,15 +199,14 @@ watch(
   position: fixed;
   box-shadow: 5px 0px 5px 0px rgba(0, 0, 0, 0.25);
   height: 100vh;
-  width: 500px;
+  width: 480px;
+  z-index: 999;
 }
 .aside__inner {
   display: flex;
   flex-direction: column;
-  max-width: 458px;
-  margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 26px;
+  padding-right: 26px;
 }
 .aside__title {
   margin-top: 35px;
@@ -226,12 +225,13 @@ watch(
 }
 .aside__form-input {
   box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   padding-left: 10px;
   border: 1px solid rgba(198, 189, 189, 1);
   border-radius: 3px;
   outline: none;
+  margin-bottom: 30px;
 
   font-family: "Inter", sans-serif;
   font-weight: 400;
@@ -265,6 +265,7 @@ input[type="number"] {
 .aside__form-input--bad {
   border: 1px solid rgba(242, 60, 60, 1);
   box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
+  margin-bottom: 0;
 }
 .aside__form-input--image {
   position: relative;
@@ -275,7 +276,7 @@ input[type="number"] {
   position: absolute;
   width: 19px;
   height: 19px;
-  top: 10px;
+  top: 6px;
   right: 10px;
   background-image: url(../assets/images/file.svg);
   background-repeat: no-repeat;
@@ -286,7 +287,7 @@ input[type="number"] {
   position: absolute;
   width: 19px;
   height: 19px;
-  top: 10px;
+  top: 6px;
   right: 10px;
   z-index: 100;
   background-image: url(../assets/images/file-uploaded.svg);
@@ -312,10 +313,13 @@ input[type="number"] {
   font-size: 7px;
   line-height: 9px;
   color: rgba(242, 60, 60, 1);
-  margin-bottom: 30px;
+  margin-bottom: 21px;
+  display: block;
+}
+.error--hidden{
+  display: none;
 }
 .aside__form-textarea {
-  margin-top: 30px;
   margin-bottom: 30px;
   resize: none;
   padding-top: 10px;

@@ -5,27 +5,41 @@ import axios from "axios";
 export const useProductsStore = defineStore("productsStore", () => {
   //states
   const products = ref([]);
-  const isLoading = ref(false);
+  const isLoading = ref(true);
   const isEdit = ref(false);
   const editId = ref(null);
   const editingProduct = ref([]);
 
   //actions
+  const throttling = () => {
+    const minLoadingTime = 800;
+
+    const loadData = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 500);
+    });
+    Promise.all([
+      loadData,
+      new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
+    ]).then(() => {
+      isLoading.value = false;
+    });
+  };
+
   const getProducts = async () => {
     try {
-      isLoading.value = true;
       const { data } = await axios.get("http://localhost:3030/api/products");
       products.value = JSON.parse(data);
     } catch (error) {
       console.error(error);
     } finally {
-      isLoading.value = false;
+      throttling();
     }
   };
 
   const postProducts = async (formData) => {
     try {
-      isLoading.value = true;
       const { data } = await axios.post(
         "http://localhost:3030/api/products",
         formData,
@@ -35,17 +49,16 @@ export const useProductsStore = defineStore("productsStore", () => {
           },
         }
       );
-      const tempId = data.id;
-      products.value.products.push({ ...formData, id: tempId });
+      products.value.products.push(data)
     } catch (err) {
       console.log(err);
     } finally {
-      isLoading.value = false;
+      
+      throttling();
     }
   };
   const putProducts = async (formData) => {
     try {
-      isLoading.value = true;
       const { data } = await axios.put(
         "http://localhost:3030/api/products",
         formData,
@@ -62,17 +75,17 @@ export const useProductsStore = defineStore("productsStore", () => {
       if (index !== -1) {
         products.value.products[index] = data;
       }
+      console.log(data)
     } catch (err) {
       console.log(err);
     } finally {
-      isLoading.value = false;
+      throttling();
       isEdit.value = false;
       editId.value = null;
     }
   };
   const deleteProducts = async (id) => {
     try {
-      isLoading.value = true;
       const { data } = await axios.delete(
         `http://localhost:3030/api/products/${id}`
       );
@@ -83,7 +96,7 @@ export const useProductsStore = defineStore("productsStore", () => {
       products.value.products = products.value.products.filter(
         (product) => product.id !== id
       );
-      isLoading.value = false;
+      throttling();
       isEdit.value = false;
       editId.value = null;
       editingProduct.value = [];
