@@ -16,21 +16,23 @@ const productsStore = useProductsStore();
   <div v-if="productsStore.isLoading" class="container">
     <Loader />
   </div>
-  <div
-    v-auto-animate
-    v-if="!productsStore.isLoading && productsStore.products.products"
-    class="products__inner"
-  >
-    <ProductsItem
-      v-for="product in productsStore.products.products"
-      :key="product.id"
-      :product="product"
-      :id="product.id"
-    />
+  <div class="products">
+    <div
+      v-auto-animate
+      v-if="!productsStore.isLoading && productsStore.products.products"
+      class="products__inner"
+    >
+      <ProductsItem
+        v-for="product in productsStore.products.products"
+        :key="product.id"
+        :product="product"
+        :id="product.id"
+      />
+    </div>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   display: flex;
   justify-content: center;
@@ -45,21 +47,24 @@ const productsStore = useProductsStore();
   background-color: rgba(233, 233, 233, 0.2);
   padding-right: 500px;
   z-index: 999;
+  &--void {
+    background-color: rgba(233, 233, 233, 1);
+    z-index: 1;
+  }
 }
-.container--void {
-  background-color: rgba(233, 233, 233, 1);
-  z-index: 1;
-}
-.products__inner {
-  background-color: rgba(233, 233, 233, 1);
-  margin-left: 480px;
-  padding-left: 40px;
-  padding-bottom: 110px;
-  padding-top: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
-  z-index: 1;
-  min-height: 100vh;
+
+.products {
+  &__inner {
+    background-color: rgba(233, 233, 233, 1);
+    margin-left: 480px;
+    padding-left: 40px;
+    padding-bottom: 110px;
+    padding-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    z-index: 1;
+    min-height: 100vh;
+  }
 }
 </style>

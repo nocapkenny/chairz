@@ -63,8 +63,8 @@ const putData = async () => {
     image: productImg.value,
   };
 
-  await productsStore.putProducts(formData)
-  clearForm()
+  await productsStore.putProducts(formData);
+  clearForm();
 };
 
 const clearForm = () => {
@@ -122,7 +122,12 @@ watch(
           "
           placeholder="Название*"
         />
-        <p v-if="errorName && errorName !== '1'" :class="productName ? 'error--hidden' : 'error'">{{ errorName }}</p>
+        <p
+          v-if="errorName && errorName !== '1'"
+          :class="productName ? 'error--hidden' : 'error'"
+        >
+          {{ errorName }}
+        </p>
         <input
           v-model="productPrice"
           type="number"
@@ -136,7 +141,9 @@ watch(
           "
           placeholder="Цена*"
         />
-        <p v-if="errorPrice && errorPrice !== '1'" class="error">{{ errorPrice }}</p>
+        <p v-if="errorPrice && errorPrice !== '1'" class="error">
+          {{ errorPrice }}
+        </p>
         <label
           :class="
             productImg
@@ -194,50 +201,188 @@ watch(
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .aside {
   position: fixed;
   box-shadow: 5px 0px 5px 0px rgba(0, 0, 0, 0.25);
   height: 100vh;
   width: 480px;
   z-index: 999;
-}
-.aside__inner {
-  display: flex;
-  flex-direction: column;
-  padding-left: 26px;
-  padding-right: 26px;
-}
-.aside__title {
-  margin-top: 35px;
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 30px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-.aside__descr {
-  margin-bottom: 35px;
-}
-.aside__form {
-  display: flex;
-  flex-direction: column;
-}
-.aside__form-input {
-  box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 10px;
-  border: 1px solid rgba(198, 189, 189, 1);
-  border-radius: 3px;
-  outline: none;
-  margin-bottom: 30px;
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+  &__title {
+    margin-top: 35px;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  &__descr {
+    margin-bottom: 35px;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__form-input {
+    box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
+    padding: 7px 10px;
+    border: 1px solid rgba(198, 189, 189, 1);
+    border-radius: 3px;
+    outline: none;
+    margin-bottom: 30px;
 
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  &__form-input::placeholder {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(136, 136, 136, 1);
+  }
+  &__form-input:focus {
+    border: 1px solid rgba(64, 111, 233, 1);
+    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+  }
+  &__form-input--good {
+    border: 1px solid rgba(64, 111, 233, 1);
+    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+  }
+  &__form-input--bad {
+    border: 1px solid rgba(242, 60, 60, 1);
+    box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
+    margin-bottom: 0;
+  }
+  &__form-input--image {
+    position: relative;
+    display: inline-block;
+  }
+  &__form-input--image::before {
+    content: "";
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 6px;
+    right: 10px;
+    background-image: url(../assets/images/file.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &__form-input--good.aside__form-input--image::before {
+    content: "";
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 6px;
+    right: 10px;
+    z-index: 100;
+    background-image: url(../assets/images/file-uploaded.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &__form-input--image input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+  }
+  &__form-span {
+    color: rgba(136, 136, 136, 1);
+  }
+  &__form-span--active {
+    color: #000;
+  }
+  &__form-textarea {
+    margin-bottom: 30px;
+    resize: none;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 3px;
+    min-height: 165px;
+    outline: none;
+    box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
+    border: 1px solid rgba(198, 189, 189, 1);
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  &__form-textarea::placeholder {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(136, 136, 136, 1);
+  }
+  &__form-textarea:focus {
+    border: 1px solid rgba(64, 111, 233, 1);
+    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+  }
+  &__form-textarea--active {
+    border: 1px solid rgba(64, 111, 233, 1);
+    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+  }
+  &__form-btn {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #fff;
+    border: 1px solid rgba(64, 111, 233, 1);
+    background: rgba(64, 111, 233, 1);
+    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all ease 0.3s;
+  }
+  &__form-btn--edit {
+    margin-bottom: 30px;
+  }
+  &__form-btn--cancel {
+    background-color: rgba(242, 60, 60, 1);
+    border: 1px solid rgba(242, 60, 60, 1);
+    box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
+  }
+  &__form-btn--cancel:hover {
+    background-color: rgba(242, 60, 60, 0.85) !important;
+    border: 1px solid rgba(242, 60, 60, 0.85) !important;
+  }
+  &__form-btn:hover {
+    background: rgba(64, 111, 233, 0.85);
+    border: 1px solid rgba(64, 111, 233, 0.85);
+  }
+  &__form-btn:active {
+    transform: translateY(5px);
+  }
+  &__form-btn--disabled {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: default;
+    box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
+    border: 1px solid rgba(198, 189, 189, 1);
+    background-color: rgba(198, 189, 189, 1);
+  }
 }
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -247,67 +392,6 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-.aside__form-input::placeholder {
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: rgba(136, 136, 136, 1);
-}
-.aside__form-input:focus {
-  border: 1px solid rgba(64, 111, 233, 1);
-  box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
-}
-.aside__form-input--good {
-  border: 1px solid rgba(64, 111, 233, 1);
-  box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
-}
-.aside__form-input--bad {
-  border: 1px solid rgba(242, 60, 60, 1);
-  box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
-  margin-bottom: 0;
-}
-.aside__form-input--image {
-  position: relative;
-  display: inline-block;
-}
-.aside__form-input--image::before {
-  content: "";
-  position: absolute;
-  width: 19px;
-  height: 19px;
-  top: 6px;
-  right: 10px;
-  background-image: url(../assets/images/file.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.aside__form-input--good.aside__form-input--image::before {
-  content: "";
-  position: absolute;
-  width: 19px;
-  height: 19px;
-  top: 6px;
-  right: 10px;
-  z-index: 100;
-  background-image: url(../assets/images/file-uploaded.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.aside__form-input--image input[type="file"] {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-  display: block;
-  width: 0;
-  height: 0;
-}
-.aside__form-span {
-  color: rgba(136, 136, 136, 1);
-}
-.aside__form-span--active {
-  color: #000;
-}
 
 .error {
   font-size: 7px;
@@ -315,86 +399,8 @@ input[type="number"] {
   color: rgba(242, 60, 60, 1);
   margin-bottom: 21px;
   display: block;
-}
-.error--hidden{
-  display: none;
-}
-.aside__form-textarea {
-  margin-bottom: 30px;
-  resize: none;
-  padding-top: 10px;
-  padding-left: 10px;
-  border-radius: 3px;
-  min-height: 165px;
-  outline: none;
-  box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
-  border: 1px solid rgba(198, 189, 189, 1);
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-}
-.aside__form-textarea::placeholder {
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: rgba(136, 136, 136, 1);
-}
-.aside__form-textarea:focus {
-  border: 1px solid rgba(64, 111, 233, 1);
-  box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
-}
-.aside__form-textarea--active {
-  border: 1px solid rgba(64, 111, 233, 1);
-  box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
-}
-.aside__form-btn {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #fff;
-  border: 1px solid rgba(64, 111, 233, 1);
-  background: rgba(64, 111, 233, 1);
-  box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all ease 0.3s;
-}
-.aside__form-btn--edit {
-  margin-bottom: 30px;
-}
-.aside__form-btn--cancel {
-  background-color: rgba(242, 60, 60, 1);
-  border: 1px solid rgba(242, 60, 60, 1);
-  box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
-}
-.aside__form-btn--cancel:hover {
-  background-color: rgba(242, 60, 60, 0.85) !important;
-  border: 1px solid rgba(242, 60, 60, 0.85) !important;
-}
-.aside__form-btn:hover {
-  background: rgba(64, 111, 233, 0.85);
-  border: 1px solid rgba(64, 111, 233, 0.85);
-}
-.aside__form-btn:active {
-  transform: translateY(5px);
-}
-.aside__form-btn--disabled {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #fff;
-  border-radius: 3px;
-  cursor: default;
-  box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
-  border: 1px solid rgba(198, 189, 189, 1);
-  background-color: rgba(198, 189, 189, 1);
+  &--hidden {
+    display: none;
+  }
 }
 </style>

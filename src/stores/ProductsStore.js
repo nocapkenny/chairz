@@ -17,7 +17,7 @@ export const useProductsStore = defineStore("productsStore", () => {
     const loadData = new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 500);
+      }, 1000);
     });
     Promise.all([
       loadData,

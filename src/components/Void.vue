@@ -7,10 +7,12 @@
     </div>
   </div>
 </template>
-<style scoped>
-.void__text {
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 48px;
+<style lang="scss" scoped>
+.void {
+  &__text {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+  }
 }
 </style>

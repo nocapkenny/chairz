@@ -58,7 +58,13 @@ const deleteItem = async (id) => {
       >
         <component :is="isHoveredDel ? DeleteActive : Delete" />
       </button>
-      <div :class="product.image === '' || !product.image ? 'item__box item__box--sample' : 'item__box'">
+      <div
+        :class="
+          product.image === '' || !product.image
+            ? 'item__box item__box--sample'
+            : 'item__box'
+        "
+      >
         <img
           v-if="product.image === '' || !product.image"
           src="../assets/images/sample.png"
@@ -82,94 +88,93 @@ const deleteItem = async (id) => {
   </div>
 </template>
 
-<style scoped>
-.item__inner {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  height: 400px;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 1);
-  position: relative;
-}
-.item__inner--active {
-  box-shadow: 10px 10px 5px 0px rgba(64, 111, 233, 0.25);
-}
-.item__edit,
-.item__delete {
-  z-index: 999;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  display: none;
-  cursor: pointer;
-  outline: none;
-}
-.item__edit-icon--active:hover {
-  display: inline-block;
-}
-.item__delete {
-  top: 50px;
-}
-.item__inner:hover button {
-  display: inline-block;
-}
-.item__box {
-  height: 200px;
-  width: 300px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgba(198, 189, 189, 1);
-  border-radius: 12px;
-  margin-bottom: 10px;
-}
-.item__box--sample{
-  border: none;
-}
-.item__img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: contain;
-
-}
-.item__title {
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-.item__descr {
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  max-width: 280px;
-  /* переполнение */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-
-}
-.item__descr-span {
-  font-weight: 700;
-}
-.item__price {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  margin-top: auto;
+<style lang="scss" scoped>
+.item {
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 1);
+    position: relative;
+  }
+  &__inner--active {
+    box-shadow: 10px 10px 5px 0px rgba(64, 111, 233, 0.25);
+  }
+  &__inner:hover button {
+    display: inline-block;
+  }
+  &__edit,
+  &__delete {
+    z-index: 999;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+    cursor: pointer;
+    outline: none;
+  }
+  &__edit-icon--active:hover {
+    display: inline-block;
+  }
+  &__delete {
+    top: 50px;
+  }
+  &__box {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(198, 189, 189, 1);
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  &__box--sample {
+    border: none;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+  &__descr {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    max-width: 280px;
+    /* переполнение */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+  }
+  &__descr--span {
+    font-weight: 700;
+  }
+  &__price {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: auto;
+  }
 }
 </style>
-
