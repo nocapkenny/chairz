@@ -16,6 +16,7 @@ const imgName = ref("");
 
 const imgUpload = (event) => {
   productImg.value = event.target.files[0];
+  console.log(productImg.value)
 };
 
 const postData = async () => {
@@ -40,7 +41,8 @@ const postData = async () => {
     description: productDescr.value,
     image: productImg.value,
   };
-  await productsStore.postProducts(formData).then(clearForm());
+  await productsStore.postProducts(formData)
+  clearForm();
 };
 const putData = async () => {
   if (productName.value === null) {
@@ -64,7 +66,7 @@ const putData = async () => {
     description: productDescr.value,
     image: productImg.value,
   };
-
+  console.log(productImg.value)
   await productsStore.putProducts(formData);
   clearForm();
 };
@@ -86,16 +88,16 @@ const checkEdit = () => {
     productDescr.value = productsStore.editingProduct[0].description;
     productImg.value = productsStore.editingProduct[0].image;
 
+    console.log(productImg.value)
     if(productImg.value){
       if (productImg.value.includes("database")) {
-      const temp = productImg.value.split('database');
+      const temp = productImg.value.split('images/');
       imgName.value = temp[1]
     } else{
       const temp = productImg.value.split('/')
       imgName.value = temp[temp.length - 1]
     }
     }
-    
   } else {
     clearForm();
   }

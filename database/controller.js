@@ -1,8 +1,8 @@
 const fs = require("fs")
 // Путь до папки с картинками
-const pathFile = __dirname 
+const pathFile = __dirname
 // папка в которую сохранять
-const directoryName = 'images'
+const directoryName = '/images/'
 
 
 function deleteFile(name) {
