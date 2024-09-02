@@ -89,26 +89,27 @@ const deleteItem = async (id) => {
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/_vars.scss';
 .item {
   &__inner {
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 400px;
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+    min-height: 400px;
+    box-shadow: 5px 5px 5px 0px $black-opacity;
     border-radius: 12px;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: white;
     position: relative;
   }
   &__inner--active {
-    box-shadow: 10px 10px 5px 0px rgba(64, 111, 233, 0.25);
+    box-shadow: 10px 10px 5px 0px $blue-opacity;
   }
   &__inner:hover button {
     display: inline-block;
   }
   &__edit,
   &__delete {
-    z-index: 999;
+    z-index: $top;
     background-color: transparent;
     border: none;
     position: absolute;
@@ -129,7 +130,7 @@ const deleteItem = async (id) => {
     width: 300px;
     overflow: hidden;
     position: relative;
-    border: 1px solid rgba(198, 189, 189, 1);
+    border: 1px solid $gray-border;
     border-radius: 12px;
     margin-bottom: 10px;
   }
@@ -158,12 +159,6 @@ const deleteItem = async (id) => {
     margin-bottom: 10px;
     margin-left: 10px;
     max-width: 280px;
-    /* переполнение */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
   }
   &__descr--span {
     font-weight: 700;

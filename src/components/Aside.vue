@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import { useProductsStore } from "../stores/ProductsStore";
 const productsStore = useProductsStore();
+import Button from "../components/Button.vue";
 
 const productName = ref(null);
 const productPrice = ref(null);
@@ -11,6 +12,7 @@ const errorName = ref("1");
 const productImg = ref(null);
 const isEdit = ref(productsStore.isEdit);
 const productId = ref(null);
+const imgName = ref("");
 
 const imgUpload = (event) => {
   productImg.value = event.target.files[0];
@@ -83,6 +85,14 @@ const checkEdit = () => {
     productPrice.value = productsStore.editingProduct[0].price;
     productDescr.value = productsStore.editingProduct[0].description;
     productImg.value = productsStore.editingProduct[0].image;
+
+    if (productImg.value.includes("database")) {
+      const temp = productImg.value.split('database');
+      imgName.value = temp[1]
+    } else{
+      const temp = productImg.value.split('/')
+      imgName.value = temp[temp.length - 1]
+    }
   } else {
     clearForm();
   }
@@ -157,7 +167,7 @@ watch(
               productImg ? 'aside__form-span--active' : 'aside__form-span'
             "
             >{{
-              productImg ? (isEdit ? "Изменить фото" : productImg.name) : "Фото"
+              productImg ? (isEdit ? imgName : productImg.name) : "Фото"
             }}</span
           >
         </label>
@@ -171,7 +181,29 @@ watch(
           placeholder="Описание товара"
         ></textarea>
       </form>
-      <button
+      <Button
+        v-if="!productsStore.isEdit"
+        :func="postData"
+        text="Добавить товар"
+        type="post"
+        :productDescr="productDescr"
+        :productName="productName"
+        :productPrice="productPrice"
+        :productImg="productImg"
+      />
+      <Button
+        v-if="productsStore.isEdit"
+        :func="putData"
+        text="Редактировать товар"
+        type="edit"
+      />
+      <Button
+        v-if="productsStore.isEdit"
+        :func="productsStore.cancelEdit"
+        text="Отменить редактирование"
+        type="cancel"
+      />
+      <!-- <button
         :disabled="!productDescr & !productName & !productPrice & !productImg"
         @click="postData"
         v-if="!productsStore.isEdit"
@@ -196,18 +228,19 @@ watch(
         class="aside__form-btn aside__form-btn--cancel"
       >
         Отменить редактирование
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "../assets/_vars.scss";
 .aside {
   position: fixed;
-  box-shadow: 5px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 0px 5px 0px $black-opacity;
   height: 100vh;
   width: 480px;
-  z-index: 999;
+  z-index: $top;
   &__inner {
     display: flex;
     flex-direction: column;
@@ -230,9 +263,9 @@ watch(
     flex-direction: column;
   }
   &__form-input {
-    box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
+    box-shadow: 2px 4px 4px 0px $gray-border-opacity;
     padding: 7px 10px;
-    border: 1px solid rgba(198, 189, 189, 1);
+    border: 1px solid $gray-border;
     border-radius: 3px;
     outline: none;
     margin-bottom: 30px;
@@ -247,19 +280,19 @@ watch(
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: rgba(136, 136, 136, 1);
+    color: $gray-text;
   }
   &__form-input:focus {
-    border: 1px solid rgba(64, 111, 233, 1);
-    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+    border: 1px solid $blue;
+    box-shadow: 2px 4px 4px 0px $blue-opacity;
   }
   &__form-input--good {
-    border: 1px solid rgba(64, 111, 233, 1);
-    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+    border: 1px solid $blue;
+    box-shadow: 2px 4px 4px 0px $blue-opacity;
   }
   &__form-input--bad {
-    border: 1px solid rgba(242, 60, 60, 1);
-    box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
+    border: 1px solid $red;
+    box-shadow: 2px 4px 4px 0px $red-opacity;
     margin-bottom: 0;
   }
   &__form-input--image {
@@ -284,24 +317,25 @@ watch(
     height: 19px;
     top: 6px;
     right: 10px;
-    z-index: 100;
+    z-index: $top;
     background-image: url(../assets/images/file-uploaded.svg);
     background-repeat: no-repeat;
     background-size: cover;
   }
   &__form-input--image input[type="file"] {
     position: absolute;
-    z-index: -1;
+    z-index: $hide;
     opacity: 0;
     display: block;
     width: 0;
     height: 0;
   }
   &__form-span {
-    color: rgba(136, 136, 136, 1);
+    color: $gray-text;
+    padding-right: 30px;
   }
   &__form-span--active {
-    color: #000;
+    color: $black;
   }
   &__form-textarea {
     margin-bottom: 30px;
@@ -311,8 +345,8 @@ watch(
     border-radius: 3px;
     min-height: 165px;
     outline: none;
-    box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
-    border: 1px solid rgba(198, 189, 189, 1);
+    box-shadow: 2px 4px 4px 0px $gray-border-opacity;
+    border: 1px solid $gray-border;
     font-family: "Inter", sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -323,15 +357,15 @@ watch(
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: rgba(136, 136, 136, 1);
+    color: $gray-text;
   }
   &__form-textarea:focus {
-    border: 1px solid rgba(64, 111, 233, 1);
-    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+    border: 1px solid $blue;
+    box-shadow: 2px 4px 4px 0px $blue-opacity;
   }
   &__form-textarea--active {
-    border: 1px solid rgba(64, 111, 233, 1);
-    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+    border: 1px solid $blue;
+    box-shadow: 2px 4px 4px 0px $blue-opacity;
   }
   &__form-btn {
     padding-top: 10px;
@@ -340,10 +374,10 @@ watch(
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: #fff;
-    border: 1px solid rgba(64, 111, 233, 1);
-    background: rgba(64, 111, 233, 1);
-    box-shadow: 2px 4px 4px 0px rgba(64, 111, 233, 0.25);
+    color: white;
+    border: 1px solid $blue;
+    background: $blue;
+    box-shadow: 2px 4px 4px 0px $blue-opacity;
     border-radius: 3px;
     cursor: pointer;
     transition: all ease 0.3s;
@@ -352,17 +386,17 @@ watch(
     margin-bottom: 30px;
   }
   &__form-btn--cancel {
-    background-color: rgba(242, 60, 60, 1);
-    border: 1px solid rgba(242, 60, 60, 1);
-    box-shadow: 2px 4px 4px 0px rgba(242, 60, 60, 0.25);
+    background-color: $red;
+    border: 1px solid $red;
+    box-shadow: 2px 4px 4px 0px $red-opacity;
   }
   &__form-btn--cancel:hover {
-    background-color: rgba(242, 60, 60, 0.85) !important;
-    border: 1px solid rgba(242, 60, 60, 0.85) !important;
+    background-color: $red-hover !important;
+    border: 1px solid $red-hover !important;
   }
   &__form-btn:hover {
-    background: rgba(64, 111, 233, 0.85);
-    border: 1px solid rgba(64, 111, 233, 0.85);
+    background: $blue-hover;
+    border: 1px solid $blue-hover;
   }
   &__form-btn:active {
     transform: translateY(5px);
@@ -374,12 +408,12 @@ watch(
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: #fff;
+    color: white;
     border-radius: 3px;
     cursor: default;
-    box-shadow: 2px 4px 4px 0px rgba(198, 189, 189, 0.25);
-    border: 1px solid rgba(198, 189, 189, 1);
-    background-color: rgba(198, 189, 189, 1);
+    box-shadow: 2px 4px 4px 0px $gray-border-opacity;
+    border: 1px solid $gray-border;
+    background-color: $gray-border;
   }
 }
 
@@ -396,7 +430,7 @@ input[type="number"] {
 .error {
   font-size: 7px;
   line-height: 9px;
-  color: rgba(242, 60, 60, 1);
+  color: $red;
   margin-bottom: 21px;
   display: block;
   &--hidden {

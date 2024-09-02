@@ -33,6 +33,7 @@ const productsStore = useProductsStore();
 </template>
 
 <style lang="scss" scoped>
+@import '../assets/_vars.scss';
 .container {
   display: flex;
   justify-content: center;
@@ -44,18 +45,18 @@ const productsStore = useProductsStore();
   text-align: center;
   top: 0;
   left: 0;
-  background-color: rgba(233, 233, 233, 0.2);
+  background-color: $gray-bg;
   padding-right: 500px;
-  z-index: 999;
+  z-index: $top;
   &--void {
-    background-color: rgba(233, 233, 233, 1);
-    z-index: 1;
+    background-color: $gray-bg;
+    z-index: $bot;
   }
 }
 
 .products {
   &__inner {
-    background-color: rgba(233, 233, 233, 1);
+    background-color: $gray-bg;
     margin-left: 480px;
     padding-left: 40px;
     padding-bottom: 110px;
@@ -63,7 +64,7 @@ const productsStore = useProductsStore();
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
-    z-index: 1;
+    z-index: $bot;
     min-height: 100vh;
   }
 }

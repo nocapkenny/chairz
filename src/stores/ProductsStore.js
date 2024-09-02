@@ -13,7 +13,7 @@ export const useProductsStore = defineStore("productsStore", () => {
   //actions
   const throttling = () => {
     const minLoadingTime = 800;
-
+    isLoading.value = true
     const loadData = new Promise((resolve) => {
       setTimeout(() => {
         resolve();
@@ -24,6 +24,7 @@ export const useProductsStore = defineStore("productsStore", () => {
       new Promise((resolve) => setTimeout(resolve, minLoadingTime)),
     ]).then(() => {
       isLoading.value = false;
+
     });
   };
 
@@ -53,7 +54,6 @@ export const useProductsStore = defineStore("productsStore", () => {
     } catch (err) {
       console.log(err);
     } finally {
-      
       throttling();
     }
   };
