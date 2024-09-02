@@ -86,13 +86,16 @@ const checkEdit = () => {
     productDescr.value = productsStore.editingProduct[0].description;
     productImg.value = productsStore.editingProduct[0].image;
 
-    if (productImg.value.includes("database")) {
+    if(productImg.value){
+      if (productImg.value.includes("database")) {
       const temp = productImg.value.split('database');
       imgName.value = temp[1]
     } else{
       const temp = productImg.value.split('/')
       imgName.value = temp[temp.length - 1]
     }
+    }
+    
   } else {
     clearForm();
   }
@@ -167,7 +170,7 @@ watch(
               productImg ? 'aside__form-span--active' : 'aside__form-span'
             "
             >{{
-              productImg ? (isEdit ? imgName : productImg.name) : "Фото"
+              productImg ? (isEdit ? productImg.name ? productImg.name : imgName : productImg.name) : "Фото"
             }}</span
           >
         </label>
