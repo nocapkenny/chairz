@@ -1,10 +1,8 @@
 <script setup>
-import Edit from "../assets/images/edit__inactive.svg";
-import EditActive from "../assets/images/edit__active.svg";
-import Delete from "../assets/images/delete__inactive.svg";
-import DeleteActive from "../assets/images/delete__active.svg";
+import { computed } from "vue";
+import Button from "./Button.vue";
 import { useProductsStore } from "../stores/ProductsStore";
-import { ref } from "vue";
+
 const productsStore = useProductsStore();
 const props = defineProps({
   product: {
@@ -17,10 +15,19 @@ const props = defineProps({
   },
 });
 
-const isHoveredEdit = ref(false);
-const isHoveredDel = ref(false);
+const innerClasses = computed(() => ({
+  "item__inner--active":
+    productsStore.isEdit && productsStore.editId === props.id,
+}));
+const boxClasses = computed(() => ({
+  "item__box--sample": props.product.image === "" || !props.product.image,
+}));
+
 const deleteItem = async (id) => {
   await productsStore.deleteProducts(id);
+};
+const editItem = (id) => {
+  productsStore.editProduct(id);
 };
 </script>
 
@@ -28,45 +35,26 @@ const deleteItem = async (id) => {
   <div class="item">
     <div
       v-if="!productsStore.isLoading"
-      :class="
-        productsStore.isEdit && productsStore.editId == id
-          ? 'item__inner item__inner--active'
-          : 'item__inner'
-      "
+      class="item__inner"
+      :class="innerClasses"
     >
-      <button
-        @mouseenter="isHoveredEdit = true"
-        @mouseleave="isHoveredEdit = false"
-        @click="productsStore.editProduct(id)"
+      <Button
         class="item__edit"
-      >
-        <component
-          :is="
-            productsStore.isEdit && productsStore.editId == id
-              ? EditActive
-              : isHoveredEdit
-              ? EditActive
-              : Edit
-          "
-        />
-      </button>
-      <button
-        @mouseenter="isHoveredDel = true"
-        @mouseleave="isHoveredDel = false"
-        @click="deleteItem(id)"
+        :isEdit="id === productsStore.editId ? true : false"
+        isCircle
+        action="edit"
+        @click="editItem(id)"
+      />
+      <Button
         class="item__delete"
-      >
-        <component :is="isHoveredDel ? DeleteActive : Delete" />
-      </button>
-      <div
-        :class="
-          product.image === '' || !product.image
-            ? 'item__box item__box--sample'
-            : 'item__box'
-        "
-      >
+        isCircle
+        action="delete"
+        @click="deleteItem(id)"
+      />
+
+      <div class="item__box" :class="boxClasses">
         <img
-          v-if="product.image === '' || !product.image"
+          v-if="product.image === '' || product.image === null"
           src="../assets/images/sample.png"
           alt="sample"
           class="item__img"
@@ -88,11 +76,12 @@ const deleteItem = async (id) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '../assets/_vars.scss';
+<style lang="scss">
+@import "../assets/_vars.scss";
 .item {
   &__inner {
     display: flex;
+    height: 100%;
     flex-direction: column;
     width: 300px;
     min-height: 400px;
@@ -118,6 +107,14 @@ const deleteItem = async (id) => {
     display: none;
     cursor: pointer;
     outline: none;
+  }
+  &__edit:hover path,
+  &__delete:hover path {
+    fill: white;
+  }
+  &__edit:hover rect,
+  &__delete:hover rect {
+    fill: $blue;
   }
   &__edit-icon--active:hover {
     display: inline-block;

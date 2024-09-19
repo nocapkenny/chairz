@@ -56,6 +56,7 @@ const productsStore = useProductsStore();
 
 .products {
   &__inner {
+    align-items: stretch;
     background-color: $gray-bg;
     margin-left: 480px;
     padding-left: 40px;

@@ -64,8 +64,10 @@ class Controller {
       if (product.id === +id) {
         if (product.image) {
           deleteFile(product.image)
-          createFile(product.id, req.files.image)
-          product.image = "../../database" + directoryName + product.id + req.files.image.name
+          if(req.files){
+            createFile(product.id, req.files.image)
+            product.image = "../../database" + directoryName + product.id + req.files.image.name
+          }
         }
         product.title = title
         product.price = price

@@ -1,48 +1,54 @@
 <script setup>
+import { computed, defineProps } from 'vue';
+import EditInactive from "../assets/images/edit__inactive.svg";
+import EditActive from "../assets/images/edit__active.svg";
+import DeleteInactive from "../assets/images/delete__inactive.svg";
+
+
 const props = defineProps({
-  func: Function,
-  text: String,
-  type: String,
-  productDescr: String,
-  productName: String,
-  productPrice: Number,
-  productImg: File,
-});
+  submit:{
+    type: Function,
+    required: false
+  },
+  action:{
+    type: String,
+    required:false,
+  },
+  isCancel: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  isDisabled: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  isCircle: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  isEdit:{
+    type: Boolean,
+    required: false,
+    default: false,
+  }
+})
+
+const classes = computed(()=>({
+  'aside__form-btn--cancel':props.isCancel,
+  'aside__form-btn--disabled':props.isDisabled,
+}))
 
 </script>
 
 <template>
-  <button
-    :disabled="type === 'post' & !productDescr & !productName & !productPrice & !productImg"
-    :class="
-      productDescr || productName || productPrice || productImg
-        ? 'aside__form-btn'
-        : type === 'edit'
-        ? 'aside__form-btn aside__form-btn--edit'
-        : type === 'cancel'
-        ? 'aside__form-btn aside__form-btn--cancel'
-        : 'aside__form-btn--disabled'
-    "
-    @click="func"
-  >
-    {{ text }}
+  <button @click="submit" :class="classes">
+    <slot />
+    <component v-if="isCircle && action === 'edit'"  :is="isEdit ? EditActive : EditInactive"/>
+    <DeleteInactive v-if="isCircle && action === 'delete'"/>
   </button>
-
-  <!-- 
-  тернарный оператор: 
-  if естьДанные{ 
-    обычная кнопка
-  } elif тип = редактировать{
-  кнопка редактирования 
-  } elif тип = отмена{ 
-    кнопка отмены 
-  } else{ 
-    выключенная кнопка 
-  } 
-  алгоритм добавления новой кнопки на сайт:
-  1. убрать 'aside__form-btn--disabled'
-  2. добавить условие type === тип кнопки
-  3. true ==> прописать дефолт класс или особый
-  4. false ==> 'aside__form-btn--disabled'
-  -->
 </template>
+
+

@@ -7,6 +7,7 @@
   </template>
   
   <style lang="scss" scoped>
+  @import "../assets/_vars.scss";
   .lds-facebook {
     display: block;
     margin: auto;
@@ -24,17 +25,17 @@
     animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   }
   .lds-facebook div:nth-child(1) {
-    border: 1px solid rgba(#000, .25);
+    border: 1px solid $black-opacity;
     left: 8px;
     animation-delay: -0.24s;
   }
   .lds-facebook div:nth-child(2) {
-    border: 1px solid rgba(#000, .25);
+    border: 1px solid $black-opacity;
     left: 32px;
     animation-delay: -0.12s;
   }
   .lds-facebook div:nth-child(3) {
-    border: 1px solid rgba(#000, .25);
+    border: 1px solid $black-opacity;
     left: 56px;
     animation-delay: 0;
   }
