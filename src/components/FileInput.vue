@@ -19,6 +19,11 @@ const props = defineProps({
     isEdit:{
         type:Boolean,
         required: false,
+    },
+    isPriceError:{
+        type: Boolean,
+        required:false,
+        default: false,
     }
 })
 
@@ -26,9 +31,13 @@ const emit = defineEmits(['imgUpload','removeFile'])
 
 const classesLabel = computed(()=>({
     'aside__form-input--good':props.isGood,
+    'aside__form-input--defmargin':!props.isGood && props.isPriceError
 }))
 const classesSpan = computed(()=>({
     'aside__form-span--active':props.isGood,
+}))
+const classesDel = computed(()=>({
+    'aside__form-btn--disabledelete':!props.isGood
 }))
 const textSpan = computed(()=>{
     if(props.isGood){
@@ -51,11 +60,11 @@ const textSpan = computed(()=>{
 
 </script>
 <template>
-    <HeaderInput :isHidden="isGood ? false : true" :text="'Фото'"/>
+    <HeaderInput :isGoodMargin="isPriceError ? true : false" :isHidden="isGood ? false : true" :text="'Фото'"/>
     <label class="aside__form-input aside__form-input--image" :class="classesLabel">
         <input @change="$emit('imgUpload', $event)" type="file" accept="image/*"/>
         <span :class="classesSpan" class="aside__form-span">{{ textSpan }}</span>
-        <button @click="$emit('removeFile')" :disabled="!isGood" class="aside__form-btn--delete">
+        <button :class="classesDel" @click="$emit('removeFile')" :disabled="!isGood" class="aside__form-btn--delete">
             <DeleteFile class="aside__form-delete"/>
         </button>
     </label>

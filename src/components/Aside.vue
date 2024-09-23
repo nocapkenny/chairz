@@ -31,37 +31,36 @@ const isDisabled = computed(() => {
   }
 });
 
-const isTextBad = computed(()=>{
-  if(productName.value){
-      return false
-    }
-  if(errorName.value && errorName.value !== '1'){
-    return true
-  } 
-})
-const isTextGood = computed(()=>{
-  if(productName.value){
-    return true
+const isTextBad = computed(() => {
+  if (productName.value) {
+    return false;
   }
-})
-const isPriceBad = computed(()=>{
-  if(productPrice.value && (errorPrice.value === '1' || errorPrice.value === '')){
-    return false
+  if (errorName.value && errorName.value !== "1") {
+    return true;
   }
-  if(errorPrice.value && errorPrice.value !== '1'){
-    return true
+});
+const isTextGood = computed(() => {
+  if (productName.value) {
+    return true;
   }
-})
-const isPriceGood = computed(()=>{
-  if(productPrice.value && (errorPrice.value === '1' || errorPrice.value === '')){
-    return true
+});
+const isPriceBad = computed(() => {
+  if (productPrice.value && productPrice.value > 0) {
+    return false;
+  } else if (errorPrice.value && errorPrice.value !== "1") {
+    return true;
+  } else if (productPrice.value && productPrice.value <= 0) {
+    return true;
   }
-})
-
+});
+const isPriceGood = computed(() => {
+  if (productPrice.value && productPrice.value > 0) {
+    return true;
+  }
+});
 
 const imgUpload = (event) => {
   productImg.value = event.target.files[0];
-  console.log(productImg.value)
 };
 
 const postData = async () => {
@@ -124,9 +123,10 @@ const clearForm = () => {
   productImg.value = null;
 };
 
-const removeFile = () =>{
-  productImg.value = null
-}
+const removeFile = () => {
+  productImg.value = null;
+  console.log(productImg.value)
+};
 
 const checkEdit = () => {
   if (productsStore.isEdit) {
@@ -140,17 +140,16 @@ const checkEdit = () => {
       if (productImg.value.includes("database")) {
         const temp = productImg.value.split("images/");
         imgName.value = temp[1];
-        const singleWord = !imgName.value.includes(' ')
-        if(singleWord && imgName.value.length > 35){
-          imgName.value = imgName.value.slice(0,35) + '...'
+        const singleWord = !imgName.value.includes(" ");
+        if (singleWord && imgName.value.length > 35) {
+          imgName.value = imgName.value.slice(0, 35) + "...";
         }
-        
       } else {
         const temp = productImg.value.split("/");
         imgName.value = temp[temp.length - 1];
-        const singleWord = !imgName.value.includes(' ')
-        if(singleWord && imgName.value.length > 40){
-          imgName.value = imgName.value.slice(0,40) + '...'
+        const singleWord = !imgName.value.includes(" ");
+        if (singleWord && imgName.value.length > 40) {
+          imgName.value = imgName.value.slice(0, 40) + "...";
         }
       }
     }
@@ -173,21 +172,58 @@ watch(
     checkEdit();
   }
 );
-
 </script>
 
 <template>
   <div class="aside">
     <div class="aside__inner">
-      <h3 class="aside__title">{{ isEdit ? 'Редактирование' : 'Добавление' }} товара</h3>
+      <h3 class="aside__title">
+        {{ isEdit ? "Редактирование" : "Добавление" }} товара
+      </h3>
       <p class="aside__descr">Заполните все обязательные поля с *</p>
       <form class="aside__form">
-        <TextInput v-model="productName"  placeholder="Название*" type="text" :isGood="productName ? true : false" :isTextBad="isTextBad" :isTextGood="isTextGood"/>
-        <Error class="error" :text="errorName" :isHidden="errorName && errorName !== '1' ? false : true" :hiddenClass="productName ? true : false"/>
-        <TextInput v-model="productPrice" class="aside__form-input" placeholder="Цена*" type="number" :isGood="productPrice ? true : false" :isPriceGood="isPriceGood" :isPriceBad="isPriceBad"/>
-        <Error class="error" :text="errorPrice" :isHidden="errorPrice && errorPrice !== '1' ? false : true"/>
-        <FileInput @img-upload="imgUpload" @remove-file="removeFile" :productImgName="productImg ? productImg.name : ''" :imgName="imgName" :isEdit="isEdit" :isGood="productImg ? true : false"/>
-        <TextArea v-model="productDescr" placeholder="Описание товара" :isGood="productDescr ? true : false"/>
+        <TextInput
+          v-model="productName"
+          placeholder="Название*"
+          type="text"
+          :isGood="productName ? true : false"
+          :isTextBad="isTextBad"
+          :isTextGood="isTextGood"
+        />
+        <Error
+          class="error"
+          :text="errorName"
+          :isHidden="errorName && errorName !== '1' ? false : true"
+          :hiddenClass="productName ? true : false"
+        />
+        <TextInput
+          v-model="productPrice"
+          :isTextBad="isTextBad"
+          placeholder="Цена*"
+          type="number"
+          :isGood="productPrice ? true : false"
+          :isPriceGood="isPriceGood"
+          :isPriceBad="isPriceBad"
+        />
+        <Error
+          class="error"
+          :text="errorPrice"
+          :isHidden="errorPrice && errorPrice !== '1' ? false : true"
+        />
+        <FileInput
+          @img-upload="imgUpload"
+          @remove-file="removeFile"
+          :productImgName="productImg ? productImg.name : ''"
+          :imgName="imgName"
+          :isEdit="isEdit"
+          :isPriceError="errorPrice && errorPrice !== '1' ? true : false"
+          :isGood="productImg ? true : false"
+        />
+        <TextArea
+          v-model="productDescr"
+          placeholder="Описание товара"
+          :isGood="productDescr ? true : false"
+        />
       </form>
       <!--
       знаю, что ниже в Button функцию правильнее будет передать через emit, но тернарный оператор почему-то не срабавыает в таком случае
@@ -239,24 +275,33 @@ watch(
     display: flex;
     flex-direction: column;
   }
-  &__form-btn--delete{
+  &__form-btn--delete {
     border: none;
     background-color: transparent;
     padding: 0;
     margin: 0;
     margin-left: auto;
-  }
-  &__form-delete{
-    width: 19px;
-    height: 19px;
-    
     cursor: pointer;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
   }
-  &__form-header{
+  &__form-btn--disabledelete {
+    display: none;
+  }
+  &__form-delete {
+    width: 16px;
+    height: 16px;
+    padding-top: 3px;
+  }
+  &__form-header {
     font-size: 12px;
     line-height: 14px;
     margin-top: 16px;
     color: $black;
+  }
+  &__form-header--margin {
+    margin-top: 7px;
   }
   &__form-input {
     box-shadow: 2px 4px 4px 0px $gray-border-opacity;
@@ -295,7 +340,15 @@ watch(
   &__form-input--image {
     position: relative;
     display: flex;
-    align-items: center;
+  }
+  &__form-input--badmargin {
+    margin-top: 0;
+    border: 1px solid $red;
+    box-shadow: 2px 4px 4px 0px $red-opacity;
+    margin-bottom: 0;
+  }
+  &__form-input--defmargin {
+    margin-top: 21px;
   }
   &__form-input--image::before {
     content: "";
@@ -303,7 +356,7 @@ watch(
     width: 19px;
     height: 19px;
     top: 6px;
-    right: 35px;
+    right: 10px;
     background-image: url(../assets/images/file.svg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -438,7 +491,6 @@ input[type="number"] {
   font-size: 7px;
   line-height: 9px;
   color: $red;
-  margin-bottom: 21px;
   display: block;
   &--hidden {
     display: none;

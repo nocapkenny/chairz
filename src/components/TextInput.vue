@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue"
+import { computed, watch } from "vue"
 import HeaderInput from "./HeaderInput.vue"
 
 
@@ -44,17 +44,26 @@ const classes = computed(()=>{
         return 'aside__form-input--good'
     }
     if(props.type === 'number' && props.isPriceBad){
-        return 'aside__form-input--bad'
+        if(props.isGood === true){
+            return 'aside__form-input--badmargin'
+        }
+        else{
+            return 'aside__form-input--bad'
+        }
     }
     if(props.type === 'number' && props.isPriceGood){
         return 'aside__form-input--good'
     }
+    if(props.isGood === false && props.isTextBad === true){
+        return 'aside__form-input--defmargin'
+    }
 })
+
 
 </script>
 
 
 <template>
-    <HeaderInput :isHidden="isGood ? false : true" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
+    <HeaderInput :isGoodMargin="isTextBad ? true : false" :isHidden="isGood ? false : true" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
     <input class="aside__form-input" v-model="model" :placeholder="placeholder" :type="type" :class="classes">
 </template>

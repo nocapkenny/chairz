@@ -58,6 +58,7 @@ export const useProductsStore = defineStore("productsStore", () => {
     }
   };
   const putProducts = async (formData) => {
+    console.log(formData)
     try {
       const { data } = await axios.put(
         "http://localhost:3030/api/products",

@@ -68,6 +68,8 @@ class Controller {
             createFile(product.id, req.files.image)
             product.image = "../../database" + directoryName + product.id + req.files.image.name
           }
+        } else if(product.image === null){
+          product.image = ''
         }
         product.title = title
         product.price = price
