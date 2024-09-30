@@ -18,18 +18,35 @@ const isEdit = ref(productsStore.isEdit);
 const productId = ref(null);
 const imgName = ref("");
 
-const isDisabled = computed(() => {
-  if (
-    !productDescr.value &
-    !productName.value &
-    !productPrice.value &
-    !productImg.value
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-});
+// const isDisabled = computed(() => {
+//   if (
+//     !productDescr.value &&
+//     !productName.value &&
+//     !productPrice.value &&
+//     !productImg.value
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// });
+// const isDisabled = computed(() =>
+//   !productDescr.value &&
+//   !productName.value &&
+//   !productPrice.value &&
+//   !productImg.value
+//     ? true
+//     : false
+// );
+const isDisabled = computed(
+  () =>
+    !!(
+      !productDescr.value &&
+      !productName.value &&
+      !productPrice.value &&
+      !productImg.value
+    )
+);
 
 const isTextBad = computed(() => {
   if (productName.value) {
@@ -125,7 +142,7 @@ const clearForm = () => {
 
 const removeFile = () => {
   productImg.value = null;
-  console.log(productImg.value)
+  console.log(productImg.value);
 };
 
 const checkEdit = () => {
@@ -186,29 +203,29 @@ watch(
           v-model="productName"
           placeholder="Название*"
           type="text"
-          :isGood="productName ? true : false"
+          :isGood="!!productName"
           :isTextBad="isTextBad"
           :isTextGood="isTextGood"
         />
         <Error
           class="error"
           :text="errorName"
-          :isHidden="errorName && errorName !== '1' ? false : true"
-          :hiddenClass="productName ? true : false"
+          :isHidden="!(errorName && errorName !== '1')"
+          :hiddenClass="!!productName"
         />
         <TextInput
           v-model="productPrice"
           :isTextBad="isTextBad"
           placeholder="Цена*"
           type="number"
-          :isGood="productPrice ? true : false"
+          :isGood="!!productPrice"
           :isPriceGood="isPriceGood"
           :isPriceBad="isPriceBad"
         />
         <Error
           class="error"
           :text="errorPrice"
-          :isHidden="errorPrice && errorPrice !== '1' ? false : true"
+          :isHidden="!(errorPrice && errorPrice !== '1')"
         />
         <FileInput
           @img-upload="imgUpload"
@@ -216,13 +233,13 @@ watch(
           :productImgName="productImg ? productImg.name : ''"
           :imgName="imgName"
           :isEdit="isEdit"
-          :isPriceError="errorPrice && errorPrice !== '1' ? true : false"
-          :isGood="productImg ? true : false"
+          :isPriceError="!!(errorPrice && errorPrice !== '1')"
+          :isGood="!!productImg"
         />
         <TextArea
           v-model="productDescr"
           placeholder="Описание товара"
-          :isGood="productDescr ? true : false"
+          :isGood="!!productDescr"
         />
       </form>
       <!--

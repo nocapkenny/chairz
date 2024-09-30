@@ -22,6 +22,6 @@ const clasess = computed(()=>({
 </script>
 
 <template>
-    <HeaderInput :isHidden="isGood ? false : true" :text="'Описание'"/>
+    <HeaderInput :isHidden="!isGood" :text="'Описание'"/>
     <textarea :placeholder="placeholder" class="aside__form-textarea" :class="clasess" v-model="model"></textarea>
 </template>

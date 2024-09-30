@@ -40,7 +40,7 @@ const editItem = (id) => {
     >
       <Button
         class="item__edit"
-        :isEdit="id === productsStore.editId ? true : false"
+        :isEdit="!!(id === productsStore.editId)"
         isCircle
         action="edit"
         @click="editItem(id)"

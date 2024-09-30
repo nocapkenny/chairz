@@ -1,5 +1,5 @@
 <script setup>
-import { computed, watch } from "vue"
+import { computed } from "vue"
 import HeaderInput from "./HeaderInput.vue"
 
 
@@ -64,6 +64,6 @@ const classes = computed(()=>{
 
 
 <template>
-    <HeaderInput :isGoodMargin="isTextBad ? true : false" :isHidden="isGood ? false : true" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
+    <HeaderInput :isGoodMargin="!!isTextBad" :isHidden="!isGood" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
     <input class="aside__form-input" v-model="model" :placeholder="placeholder" :type="type" :class="classes">
 </template>

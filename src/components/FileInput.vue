@@ -60,7 +60,7 @@ const textSpan = computed(()=>{
 
 </script>
 <template>
-    <HeaderInput :isGoodMargin="isPriceError ? true : false" :isHidden="isGood ? false : true" :text="'Фото'"/>
+    <HeaderInput :isGoodMargin="!!isPriceError" :isHidden="!isGood" :text="'Фото'"/>
     <label class="aside__form-input aside__form-input--image" :class="classesLabel">
         <input @change="$emit('imgUpload', $event)" type="file" accept="image/*"/>
         <span :class="classesSpan" class="aside__form-span">{{ textSpan }}</span>
