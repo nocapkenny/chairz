@@ -77,7 +77,6 @@ const editItem = (id) => {
 </template>
 
 <style lang="scss">
-@import "../assets/_vars.scss";
 .item {
   &__inner {
     display: flex;
@@ -85,20 +84,20 @@ const editItem = (id) => {
     flex-direction: column;
     width: 300px;
     min-height: 400px;
-    box-shadow: 5px 5px 5px 0px $black-opacity;
+    box-shadow: 5px 5px 5px 0px var(--black-opacity);
     border-radius: 12px;
     background-color: white;
     position: relative;
   }
   &__inner--active {
-    box-shadow: 10px 10px 5px 0px $blue-opacity;
+    box-shadow: 10px 10px 5px 0px var(--blue-opacity);
   }
   &__inner:hover button {
     display: inline-block;
   }
   &__edit,
   &__delete {
-    z-index: $top;
+    z-index: var(--top);
     background-color: transparent;
     border: none;
     position: absolute;
@@ -114,7 +113,7 @@ const editItem = (id) => {
   }
   &__edit:hover rect,
   &__delete:hover rect {
-    fill: $blue;
+    fill: var(--blue);
   }
   &__edit-icon--active:hover {
     display: inline-block;
@@ -127,7 +126,7 @@ const editItem = (id) => {
     width: 300px;
     overflow: hidden;
     position: relative;
-    border: 1px solid $gray-border;
+    border: 1px solid var(--gray-border);
     border-radius: 12px;
     margin-bottom: 10px;
   }

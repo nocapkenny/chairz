@@ -264,13 +264,12 @@ watch(
 </template>
 
 <style lang="scss">
-@import "../assets/_vars.scss";
 .aside {
   position: fixed;
-  box-shadow: 5px 0px 5px 0px $black-opacity;
+  box-shadow: 5px 0px 5px 0px var(--black-opacity);
   height: 100vh;
   width: 480px;
-  z-index: $top;
+  z-index: var(--top);
   &__inner {
     display: flex;
     flex-direction: column;
@@ -296,8 +295,7 @@ watch(
     border: none;
     background-color: transparent;
     padding: 0;
-    margin: 0;
-    margin-left: auto;
+    margin: 0 0 0 auto;
     cursor: pointer;
     width: 16px;
     height: 16px;
@@ -315,15 +313,15 @@ watch(
     font-size: 12px;
     line-height: 14px;
     margin-top: 16px;
-    color: $black;
+    color: var(--black);
   }
   &__form-header--margin {
     margin-top: 7px;
   }
   &__form-input {
-    box-shadow: 2px 4px 4px 0px $gray-border-opacity;
+    box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
     padding: 7px 10px;
-    border: 1px solid $gray-border;
+    border: 1px solid var(--gray-border);
     border-radius: 3px;
     outline: none;
     margin-top: 30px;
@@ -338,20 +336,20 @@ watch(
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: $gray-text;
+    color: var(--gray-text);
   }
   &__form-input:focus {
-    border: 1px solid $blue;
-    box-shadow: 2px 4px 4px 0px $blue-opacity;
+    border: 1px solid var(--blue);
+    box-shadow: 2px 4px 4px 0px var(--blue-opacity);
   }
   &__form-input--good {
-    border: 1px solid $blue;
-    box-shadow: 2px 4px 4px 0px $blue-opacity;
+    border: 1px solid var(--blue);
+    box-shadow: 2px 4px 4px 0px var(--blue-opacity);
     margin-top: 0;
   }
   &__form-input--bad {
-    border: 1px solid $red;
-    box-shadow: 2px 4px 4px 0px $red-opacity;
+    border: 1px solid var(--red);
+    box-shadow: 2px 4px 4px 0px var(--red-opacity);
     margin-bottom: 0;
   }
   &__form-input--image {
@@ -360,8 +358,8 @@ watch(
   }
   &__form-input--badmargin {
     margin-top: 0;
-    border: 1px solid $red;
-    box-shadow: 2px 4px 4px 0px $red-opacity;
+    border: 1px solid var(--red);
+    box-shadow: 2px 4px 4px 0px var(--red-opacity);
     margin-bottom: 0;
   }
   &__form-input--defmargin {
@@ -385,25 +383,25 @@ watch(
     height: 19px;
     top: 6px;
     right: 35px;
-    z-index: $top;
+    z-index: var(--top);
     background-image: url(../assets/images/file-uploaded.svg);
     background-repeat: no-repeat;
     background-size: cover;
   }
   &__form-input--image input[type="file"] {
     position: absolute;
-    z-index: $hide;
+    z-index: var(--hide);
     opacity: 0;
     display: block;
     width: 0;
     height: 0;
   }
   &__form-span {
-    color: $gray-text;
+    color: var(--gray-text);
     padding-right: 30px;
   }
   &__form-span--active {
-    color: $black;
+    color: var(--black);
     max-width: 380px;
     display: inline-block;
   }
@@ -416,8 +414,8 @@ watch(
     border-radius: 3px;
     min-height: 165px;
     outline: none;
-    box-shadow: 2px 4px 4px 0px $gray-border-opacity;
-    border: 1px solid $gray-border;
+    box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
+    border: 1px solid var(--gray-border);
     font-family: "Inter", sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -428,15 +426,15 @@ watch(
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: $gray-text;
+    color: var(--gray-text);
   }
   &__form-textarea:focus {
-    border: 1px solid $blue;
-    box-shadow: 2px 4px 4px 0px $blue-opacity;
+    border: 1px solid var(--blue);
+    box-shadow: 2px 4px 4px 0px var(--blue-opacity);
   }
   &__form-textarea--active {
-    border: 1px solid $blue;
-    box-shadow: 2px 4px 4px 0px $blue-opacity;
+    border: 1px solid var(--blue);
+    box-shadow: 2px 4px 4px 0px var(--blue-opacity);
     margin-top: 0;
   }
   &__form-btn {
@@ -447,26 +445,26 @@ watch(
     font-size: 16px;
     line-height: 19px;
     color: white;
-    border: 1px solid $blue;
-    background: $blue;
-    box-shadow: 2px 4px 4px 0px $blue-opacity;
+    border: 1px solid var(--blue);
+    background: var(--blue);
+    box-shadow: 2px 4px 4px 0px var(--blue-opacity);
     border-radius: 3px;
     cursor: pointer;
     transition: all ease 0.3s;
   }
   &__form-btn--cancel {
-    background-color: $red;
-    border: 1px solid $red;
-    box-shadow: 2px 4px 4px 0px $red-opacity;
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    box-shadow: 2px 4px 4px 0px var(--red-opacity);
     margin-top: 30px;
   }
   &__form-btn--cancel:hover {
-    background-color: $red-hover !important;
-    border: 1px solid $red-hover !important;
+    background-color: var(--red-hover) !important;
+    border: 1px solid var(--red-hover) !important;
   }
   &__form-btn:hover {
-    background: $blue-hover;
-    border: 1px solid $blue-hover;
+    background: var(--blue-hover);
+    border: 1px solid var(--blue-hover);
   }
   &__form-btn:active {
     transform: translateY(5px);
@@ -481,13 +479,13 @@ watch(
     color: white;
     border-radius: 3px;
     cursor: default;
-    box-shadow: 2px 4px 4px 0px $gray-border-opacity;
-    border: 1px solid $gray-border;
-    background-color: $gray-border;
+    box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
+    border: 1px solid var(--gray-border);
+    background-color: var(--gray-border);
   }
   &__form-btn--disabled:hover {
-    background: $gray-border !important;
-    border: 1px solid $gray-border;
+    background: var(--gray-border) !important;
+    border: 1px solid var(--gray-border);
   }
   &__form-btn--disabled:active {
     transform: none;
@@ -507,7 +505,7 @@ input[type="number"] {
 .error {
   font-size: 7px;
   line-height: 9px;
-  color: $red;
+  color: var(--red);
   display: block;
   &--hidden {
     display: none;
