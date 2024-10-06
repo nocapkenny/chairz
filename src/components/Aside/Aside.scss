@@ -1,0 +1,247 @@
+.aside {
+    position: fixed;
+    box-shadow: 5px 0px 5px 0px var(--black-opacity);
+    height: 100vh;
+    width: 480px;
+    z-index: var(--top);
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      padding-left: 26px;
+      padding-right: 26px;
+    }
+    &__title {
+      margin-top: 35px;
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    &__descr {
+      margin-bottom: 5px;
+    }
+    &__form {
+      display: flex;
+      flex-direction: column;
+    }
+    &__form-btn--delete {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+      margin: 0 0 0 auto;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+    }
+    &__form-btn--disabledelete {
+      display: none;
+    }
+    &__form-delete {
+      width: 16px;
+      height: 16px;
+      padding-top: 3px;
+    }
+    &__form-header {
+      font-size: 12px;
+      line-height: 14px;
+      margin-top: 16px;
+      color: var(--black);
+    }
+    &__form-header--margin {
+      margin-top: 7px;
+    }
+    &__form-input {
+      box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
+      padding: 7px 10px;
+      border: 1px solid var(--gray-border);
+      border-radius: 3px;
+      outline: none;
+      margin-top: 30px;
+  
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    &__form-input::placeholder {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: var(--gray-text);
+    }
+    &__form-input:focus {
+      border: 1px solid var(--blue);
+      box-shadow: 2px 4px 4px 0px var(--blue-opacity);
+    }
+    &__form-input--good {
+      border: 1px solid var(--blue);
+      box-shadow: 2px 4px 4px 0px var(--blue-opacity);
+      margin-top: 0;
+    }
+    &__form-input--bad {
+      border: 1px solid var(--red);
+      box-shadow: 2px 4px 4px 0px var(--red-opacity);
+      margin-bottom: 0;
+    }
+    &__form-input--image {
+      position: relative;
+      display: flex;
+    }
+    &__form-input--badmargin {
+      margin-top: 0;
+      border: 1px solid var(--red);
+      box-shadow: 2px 4px 4px 0px var(--red-opacity);
+      margin-bottom: 0;
+    }
+    &__form-input--defmargin {
+      margin-top: 21px;
+    }
+    &__form-input--image::before {
+      content: "";
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      top: 6px;
+      right: 10px;
+      background-image: url(../assets/images/file.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    &__form-input--good.aside__form-input--image::before {
+      content: "";
+      position: absolute;
+      width: 19px;
+      height: 19px;
+      top: 6px;
+      right: 35px;
+      z-index: var(--top);
+      background-image: url(../assets/images/file-uploaded.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    &__form-input--image input[type="file"] {
+      position: absolute;
+      z-index: var(--hide);
+      opacity: 0;
+      display: block;
+      width: 0;
+      height: 0;
+    }
+    &__form-span {
+      color: var(--gray-text);
+      padding-right: 30px;
+    }
+    &__form-span--active {
+      color: var(--black);
+      max-width: 380px;
+      display: inline-block;
+    }
+    &__form-textarea {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      resize: none;
+      padding-top: 10px;
+      padding-left: 10px;
+      border-radius: 3px;
+      min-height: 165px;
+      outline: none;
+      box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
+      border: 1px solid var(--gray-border);
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+    }
+    &__form-textarea::placeholder {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: var(--gray-text);
+    }
+    &__form-textarea:focus {
+      border: 1px solid var(--blue);
+      box-shadow: 2px 4px 4px 0px var(--blue-opacity);
+    }
+    &__form-textarea--active {
+      border: 1px solid var(--blue);
+      box-shadow: 2px 4px 4px 0px var(--blue-opacity);
+      margin-top: 0;
+    }
+    &__form-btn {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: white;
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      box-shadow: 2px 4px 4px 0px var(--blue-opacity);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all ease 0.3s;
+    }
+    &__form-btn--cancel {
+      background-color: var(--red);
+      border: 1px solid var(--red);
+      box-shadow: 2px 4px 4px 0px var(--red-opacity);
+      margin-top: 30px;
+    }
+    &__form-btn--cancel:hover {
+      background-color: var(--red-hover) !important;
+      border: 1px solid var(--red-hover) !important;
+    }
+    &__form-btn:hover {
+      background: var(--blue-hover);
+      border: 1px solid var(--blue-hover);
+    }
+    &__form-btn:active {
+      transform: translateY(5px);
+    }
+    &__form-btn--disabled {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: white;
+      border-radius: 3px;
+      cursor: default;
+      box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
+      border: 1px solid var(--gray-border);
+      background-color: var(--gray-border);
+    }
+    &__form-btn--disabled:hover {
+      background: var(--gray-border) !important;
+      border: 1px solid var(--gray-border);
+    }
+    &__form-btn--disabled:active {
+      transform: none;
+    }
+  }
+  
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
+  .error {
+    font-size: 7px;
+    line-height: 9px;
+    color: var(--red);
+    display: block;
+    &--hidden {
+      display: none;
+    }
+  }

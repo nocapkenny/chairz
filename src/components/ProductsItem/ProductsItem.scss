@@ -1,0 +1,91 @@
+.item {
+  &__inner {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    width: 300px;
+    min-height: 400px;
+    box-shadow: 5px 5px 5px 0px var(--black-opacity);
+    border-radius: 12px;
+    background-color: white;
+    position: relative;
+  }
+  &__inner--active {
+    box-shadow: 10px 10px 5px 0px var(--blue-opacity);
+  }
+  &__inner:hover button {
+    display: inline-block;
+  }
+  &__edit,
+  &__delete {
+    z-index: var(--top);
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+    cursor: pointer;
+    outline: none;
+  }
+  &__edit:hover path,
+  &__delete:hover path {
+    fill: white;
+  }
+  &__edit:hover rect,
+  &__delete:hover rect {
+    fill: var(--blue);
+  }
+  &__edit-icon--active:hover {
+    display: inline-block;
+  }
+  &__delete {
+    top: 50px;
+  }
+  &__box {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--gray-border);
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  &__box--sample {
+    border: none;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+  &__descr {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    max-width: 280px;
+  }
+  &__descr--span {
+    font-weight: 700;
+  }
+  &__price {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-top: auto;
+  }
+}

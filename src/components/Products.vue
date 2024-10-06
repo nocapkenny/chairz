@@ -1,5 +1,5 @@
 <script setup>
-import ProductsItem from "../components/ProductsItem.vue";
+import ProductsItem from "../components/ProductsItem/ProductsItem.vue";
 import Loader from "../components/Loader.vue";
 import Void from "../components/Void.vue";
 import { useProductsStore } from "../stores/ProductsStore";
