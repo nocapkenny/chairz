@@ -33,4 +33,11 @@
     --top: 999;
     --bot: 1;
     --hide: -1;
+
+
+    /* шрифты */
+    --inter: "Inter", sans-serif;
+    --regular: 400;
+    --semibold: 600;
+    --bold: 700;
 }

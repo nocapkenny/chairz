@@ -55,7 +55,7 @@ const editItem = (id) => {
       <div class="item__box" :class="boxClasses">
         <img
           v-if="product.image === '' || product.image === null"
-          src="../assets/images/sample.png"
+          src="../../assets/images/sample.png"
           alt="sample"
           class="item__img"
         />

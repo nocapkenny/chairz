@@ -12,7 +12,7 @@
     }
     &__title {
       margin-top: 35px;
-      font-weight: 600;
+      font-weight: var(--semibold);
       font-size: 25px;
       line-height: 30px;
       margin-bottom: 30px;
@@ -60,14 +60,14 @@
       outline: none;
       margin-top: 30px;
   
-      font-family: "Inter", sans-serif;
+      font-family: var(--inter);
       font-weight: 400;
       font-size: 16px;
       line-height: 19px;
     }
     &__form-input::placeholder {
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
+      font-family: var(--inter);
+      font-weight: var(--regular);
       font-size: 16px;
       line-height: 19px;
       color: var(--gray-text);
@@ -150,14 +150,14 @@
       outline: none;
       box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
       border: 1px solid var(--gray-border);
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
+      font-family: var(--inter);
+      font-weight: var(--regular);
       font-size: 16px;
       line-height: 19px;
     }
     &__form-textarea::placeholder {
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
+      font-family: var(--inter);
+      font-weight: var(--regular);
       font-size: 16px;
       line-height: 19px;
       color: var(--gray-text);
@@ -174,8 +174,8 @@
     &__form-btn {
       padding-top: 10px;
       padding-bottom: 10px;
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
+      font-family: var(--inter);
+      font-weight: var(--regular);
       font-size: 16px;
       line-height: 19px;
       color: white;
@@ -206,8 +206,8 @@
     &__form-btn--disabled {
       padding-top: 10px;
       padding-bottom: 10px;
-      font-family: "Inter", sans-serif;
-      font-weight: 400;
+      font-family: var(--inter);
+      font-weight: var(--regular);
       font-size: 16px;
       line-height: 19px;
       color: white;
