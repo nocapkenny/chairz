@@ -2,11 +2,11 @@
 import { computed, ref, watch } from "vue";
 import { useProductsStore } from "../../stores/ProductsStore.js";
 const productsStore = useProductsStore();
-import Button from "../../components/Button.vue";
-import TextInput from "../TextInput.vue";
-import FileInput from "../FileInput.vue";
-import TextArea from "../TextArea.vue";
-import Error from "../Error.vue";
+import Button from "../_UiComponents/Button.vue";
+import TextInput from "../_UiComponents/TextInput.vue";
+import FileInput from "../_UiComponents/FileInput.vue";
+import TextArea from "../_UiComponents/TextArea.vue";
+import Error from "../_UiComponents/Error.vue";
 
 const productName = ref(null);
 const productPrice = ref(null);

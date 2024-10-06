@@ -1,8 +1,8 @@
 <script setup>
-import ProductsItem from "../components/ProductsItem/ProductsItem.vue";
-import Loader from "../components/Loader.vue";
-import Void from "../components/Void.vue";
-import { useProductsStore } from "../stores/ProductsStore";
+import ProductsItem from "../../components/ProductsItem/ProductsItem.vue";
+import Loader from "../../components/Loader/Loader.vue";
+import Void from "../../components/Void/Void.vue";
+import { useProductsStore } from "../../stores/ProductsStore";
 const productsStore = useProductsStore();
 </script>
 

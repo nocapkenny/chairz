@@ -1,7 +1,7 @@
 <script setup>
 import { computed, defineProps } from "vue"
 import HeaderInput from "./HeaderInput.vue";
-import DeleteFile from "../assets/images/delete-file.svg"
+import DeleteFile from "../../assets/images/delete-file.svg"
 
 const props = defineProps({
     isGood:{

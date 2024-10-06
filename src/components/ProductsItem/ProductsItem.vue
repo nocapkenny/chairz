@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue";
-import Button from "../Button.vue";
+import Button from "../_UiComponents/Button.vue";
 import { useProductsStore } from "../../stores/ProductsStore.js";
 
 const productsStore = useProductsStore();

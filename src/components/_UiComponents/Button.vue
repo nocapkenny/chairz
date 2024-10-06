@@ -1,8 +1,8 @@
 <script setup>
 import { computed, defineProps } from "vue";
-import EditInactive from "../assets/images/edit__inactive.svg";
-import EditActive from "../assets/images/edit__active.svg";
-import DeleteInactive from "../assets/images/delete__inactive.svg";
+import EditInactive from "../../assets/images/edit__inactive.svg";
+import EditActive from "../../assets/images/edit__active.svg";
+import DeleteInactive from "../../assets/images/delete__inactive.svg";
 
 const props = defineProps({
   submit: {
