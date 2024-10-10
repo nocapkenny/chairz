@@ -2,7 +2,7 @@
 <template>
   <div class="void">
     <div class="void__inner">
-      <img src="../assets/images/void.svg" alt="void" class="void__img" />
+      <img src="../../assets/images/void.svg" alt="void" class="void__img" />
       <p class="void__text">В данный момент товары отсутствуют</p>
     </div>
   </div>
