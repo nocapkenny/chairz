@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue"
-import HeaderInput from "./HeaderInput.vue"
+import HeaderInput from "./Placeholder.vue"
 
 
 const props = defineProps({

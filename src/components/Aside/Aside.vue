@@ -56,11 +56,7 @@ const isTextBad = computed(() => {
     return true;
   }
 });
-// const isTextGood = computed(() => {
-//   if (productName.value) {
-//     return true;
-//   }
-// });
+
 const isTextGood = computed(() => !!productName.value);
 
 const isPriceBad = computed(() => {

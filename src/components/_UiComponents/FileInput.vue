@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineProps } from "vue"
-import HeaderInput from "./HeaderInput.vue";
+import HeaderInput from "./Placeholder.vue";
 import DeleteFile from "../../assets/images/delete-file.svg"
 
 const props = defineProps({
