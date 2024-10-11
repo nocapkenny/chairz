@@ -58,6 +58,7 @@ const textSpan = computed(()=>{
     }
 })
 
+
 </script>
 <template>
     <HeaderInput :isGoodMargin="!!isPriceError" :isHidden="!isGood" :text="'Фото'"/>

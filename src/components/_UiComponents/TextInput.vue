@@ -36,28 +36,12 @@ const props = defineProps({
 
 const model = defineModel()
 
-const classes = computed(()=>{
-    if(props.type === 'text' && props.isTextBad){
-        return 'aside__form-input--bad'
-    }
-    if(props.type === 'text' && props.isTextGood){
-        return 'aside__form-input--good'
-    }
-    if(props.type === 'number' && props.isPriceBad){
-        if(props.isGood === true){
-            return 'aside__form-input--badmargin'
-        }
-        else{
-            return 'aside__form-input--bad'
-        }
-    }
-    if(props.type === 'number' && props.isPriceGood){
-        return 'aside__form-input--good'
-    }
-    if(props.isGood === false && props.isTextBad === true){
-        return 'aside__form-input--defmargin'
-    }
-})
+const classes = computed(()=>({
+    'aside__form-input--bad':(props.type === 'text' && props.isTextBad) || (props.type === 'number' && props.isPriceBad && !props.isGood),
+    'aside__form-input--good':(props.type === 'text' && props.isTextGood) || (props.type === 'number' && props.isPriceGood),
+    'aside__form-input--badmargin':(props.type === 'number' && props.isPriceBad && props.isGood),
+    'aside__form-input--defmargin':(props.isGood === false && props.isTextBad === true && !props.type === 'text')
+}))
 
 
 </script>
