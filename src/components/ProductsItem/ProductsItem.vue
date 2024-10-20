@@ -76,6 +76,5 @@ const editItem = (id) => {
   </div>
 </template>
 
-<style lang="scss">
-@import url('../ProductsItem/ProductsItem.scss');
-</style>
+<style lang="scss" src="../ProductsItem/ProductsItem.scss" />
+

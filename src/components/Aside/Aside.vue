@@ -261,6 +261,5 @@ watch(
   </div>
 </template>
 
-<style lang="scss">
-@import url('./Aside.scss');
-</style>
+<style lang="scss" src="./Aside.scss" />
+
