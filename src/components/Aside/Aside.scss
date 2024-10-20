@@ -59,17 +59,8 @@
       border-radius: 3px;
       outline: none;
       margin-top: 30px;
-  
-      font-family: var(--inter);
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
     }
     &__form-input::placeholder {
-      font-family: var(--inter);
-      font-weight: var(--regular);
-      font-size: 16px;
-      line-height: 19px;
       color: var(--gray-text);
     }
     &__form-input:focus {
@@ -150,16 +141,8 @@
       outline: none;
       box-shadow: 2px 4px 4px 0px var(--gray-border-opacity);
       border: 1px solid var(--gray-border);
-      font-family: var(--inter);
-      font-weight: var(--regular);
-      font-size: 16px;
-      line-height: 19px;
     }
     &__form-textarea::placeholder {
-      font-family: var(--inter);
-      font-weight: var(--regular);
-      font-size: 16px;
-      line-height: 19px;
       color: var(--gray-text);
     }
     &__form-textarea:focus {
@@ -174,10 +157,6 @@
     &__form-btn {
       padding-top: 10px;
       padding-bottom: 10px;
-      font-family: var(--inter);
-      font-weight: var(--regular);
-      font-size: 16px;
-      line-height: 19px;
       color: white;
       border: 1px solid var(--blue);
       background: var(--blue);
@@ -206,10 +185,6 @@
     &__form-btn--disabled {
       padding-top: 10px;
       padding-bottom: 10px;
-      font-family: var(--inter);
-      font-weight: var(--regular);
-      font-size: 16px;
-      line-height: 19px;
       color: white;
       border-radius: 3px;
       cursor: default;
