@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue"
-import HeaderInput from "./Placeholder.vue"
+import Placeholder from "./Placeholder.vue"
 
 
 const props = defineProps({
@@ -48,6 +48,6 @@ const classes = computed(()=>({
 
 
 <template>
-    <HeaderInput :isGoodMargin="!!isTextBad" :isHidden="!isGood" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
+    <Placeholder :isGoodMargin="!!isTextBad" v-if="!!isGood" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
     <input class="aside__form-input" v-model="model" :placeholder="placeholder" :type="type" :class="classes">
 </template>

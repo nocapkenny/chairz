@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineProps } from "vue"
-import HeaderInput from "./Placeholder.vue";
+import Placeholder from "./Placeholder.vue";
 import DeleteFile from "../../assets/images/delete-file.svg"
 
 const props = defineProps({
@@ -61,7 +61,7 @@ const textSpan = computed(()=>{
 
 </script>
 <template>
-    <HeaderInput :isGoodMargin="!!isPriceError" :isHidden="!isGood" :text="'Фото'"/>
+    <Placeholder :isGoodMargin="!!isPriceError" v-if="!!isGood" :text="'Фото'"/>
     <label class="aside__form-input aside__form-input--image" :class="classesLabel">
         <input @change="$emit('imgUpload', $event)" type="file" accept="image/*"/>
         <span :class="classesSpan" class="aside__form-span">{{ textSpan }}</span>

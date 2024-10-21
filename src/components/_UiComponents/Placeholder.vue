@@ -6,11 +6,6 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    isHidden:{
-        type: Boolean,
-        required: true,
-        default: true
-    },
     isGoodMargin: {
         type: Boolean,
         required: false,
@@ -24,5 +19,5 @@ const classes = computed(()=>({
 
 </script>
 <template>
-    <p :class="classes" class="aside__form-header" v-if="!isHidden">{{ text }}</p>
+    <p :class="classes" class="aside__form-header">{{ text }}</p>
 </template>

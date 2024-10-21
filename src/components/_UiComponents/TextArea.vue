@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from "vue"
-import HeaderInput from "./Placeholder.vue";
+import Placeholder from "./Placeholder.vue";
 
 const props = defineProps({
     isGood:{
@@ -22,6 +22,6 @@ const clasess = computed(()=>({
 </script>
 
 <template>
-    <HeaderInput :isHidden="!isGood" :text="'Описание'"/>
+    <Placeholder v-if="!!isGood" :text="'Описание'"/>
     <textarea :placeholder="placeholder" class="aside__form-textarea" :class="clasess" v-model="model"></textarea>
 </template>
