@@ -5,10 +5,10 @@ import EditActive from "../../assets/images/edit__active.svg";
 import DeleteInactive from "../../assets/images/delete__inactive.svg";
 
 const props = defineProps({
-  submit: {
-    type: Function,
-    required: false,
-  },
+  // submit: {
+  //   type: Function,
+  //   required: false,
+  // },
   action: {
     type: String,
     required: false,
@@ -35,6 +35,8 @@ const props = defineProps({
   },
 });
 
+const emit = (['handleSubmit'])
+
 const classes = computed(() => ({
   "aside__form-btn--cancel": props.isCancel,
   "aside__form-btn--disabled": props.isDisabled,
@@ -42,7 +44,7 @@ const classes = computed(() => ({
 </script>
 
 <template>
-  <button @click="submit" :class="classes">
+  <button @click="$emit('handleSubmit')" :class="classes">
     <slot />
     <component
       v-if="isCircle && action === 'edit'"

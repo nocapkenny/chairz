@@ -48,6 +48,6 @@ const classes = computed(()=>({
 
 
 <template>
-    <Placeholder :isGoodMargin="!!isTextBad" v-if="!!isGood" :text="type === 'text' ? 'Название*' : 'Цена*'"/>
+    <Placeholder :isGoodMargin="!!isTextBad" v-if="!!isGood" :text="placeholder"/>
     <input class="aside__form-input" v-model="model" :placeholder="placeholder" :type="type" :class="classes">
 </template>

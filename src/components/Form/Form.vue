@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, defineProps } from "vue";
 import { useProductsStore } from "../../stores/ProductsStore.js";
 const productsStore = useProductsStore();
 import Button from "../_UiComponents/Button.vue";
@@ -7,6 +7,25 @@ import TextInput from "../_UiComponents/TextInput.vue";
 import FileInput from "../_UiComponents/FileInput.vue";
 import TextArea from "../_UiComponents/TextArea.vue";
 import Error from "../_UiComponents/Error.vue";
+
+const props = defineProps({
+  formHeader: {
+    type: String,
+    required: true,
+  },
+  buttonText: {
+    type: String,
+    required: true,
+  },
+  putData: {
+    type: Function,
+    required: false,
+  },
+  postData: {
+    type: Function,
+    required: false,
+  },
+});
 
 const productName = ref(null);
 const productPrice = ref(null);
@@ -18,26 +37,7 @@ const isEdit = ref(productsStore.isEdit);
 const productId = ref(null);
 const imgName = ref("");
 
-// const isDisabled = computed(() => {
-//   if (
-//     !productDescr.value &&
-//     !productName.value &&
-//     !productPrice.value &&
-//     !productImg.value
-//   ) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// });
-// const isDisabled = computed(() =>
-//   !productDescr.value &&
-//   !productName.value &&
-//   !productPrice.value &&
-//   !productImg.value
-//     ? true
-//     : false
-// );
+//дисейбл кнопки
 const isDisabled = computed(
   () =>
     !!(
@@ -47,7 +47,7 @@ const isDisabled = computed(
       !productImg.value
     )
 );
-
+//computed для стилей инпута Название*
 const isTextBad = computed(() => {
   if (productName.value) {
     return false;
@@ -56,9 +56,9 @@ const isTextBad = computed(() => {
     return true;
   }
 });
-
+//computed для стилей инпута Название*
 const isTextGood = computed(() => !!productName.value);
-
+//computed для стилей инпута Цена*
 const isPriceBad = computed(() => {
   if (productPrice.value && productPrice.value > 0) {
     return false;
@@ -68,67 +68,45 @@ const isPriceBad = computed(() => {
     return true;
   }
 });
+
+//computed для стилей инпута Цена*
 const isPriceGood = computed(() => {
   if (productPrice.value && productPrice.value > 0) {
     return true;
   }
 });
 
+//загрузка фото
 const imgUpload = (event) => {
   productImg.value = event.target.files[0];
 };
 
-const postData = async () => {
-  if (productName.value === null) {
-    errorName.value = "Обязательное поле для заполнения";
-    return;
+//действия при клике на кнопку
+const handleSubmit = () => {
+  if (!isEdit.value) {
+    props.postData(
+      productName.value,
+      errorName.value,
+      productPrice.value,
+      errorPrice.value,
+      productDescr.value,
+      productImg.value
+    );
+  } else{
+    props.putData(
+      productName.value,
+      errorName.value,
+      productPrice.value,
+      errorPrice.value,
+      productId.value,
+      productDescr.value,
+      productImg.value
+    )
   }
-  errorName.value = "";
-  if (productPrice.value === null) {
-    errorPrice.value = "Обязательное поле для заполнения";
-    return;
-  } else if (productPrice.value <= 0) {
-    errorPrice.value = "Цена должна быть больше нуля";
-    return;
-  }
-  errorName.value = "";
-  errorPrice.value = "";
-
-  const formData = {
-    title: productName.value,
-    price: productPrice.value,
-    description: productDescr.value,
-    image: productImg.value,
-  };
-  await productsStore.postProducts(formData);
-  clearForm();
-};
-const putData = async () => {
-  if (productName.value === null) {
-    errorName.value = "Обязательное поле для заполнения";
-    return;
-  }
-  errorName.value = "";
-  if (productPrice.value === null) {
-    errorPrice.value = "Обязательное поле для заполнения";
-    return;
-  } else if (productPrice.value <= 0) {
-    errorPrice.value = "Цена должна быть больше нуля";
-    return;
-  }
-  errorName.value = "";
-  errorPrice.value = "";
-  const formData = {
-    id: productId.value,
-    title: productName.value,
-    price: productPrice.value,
-    description: productDescr.value,
-    image: productImg.value,
-  };
-  await productsStore.putProducts(formData);
-  clearForm();
+  clearForm()
 };
 
+//очистка формы
 const clearForm = () => {
   productName.value = null;
   productPrice.value = null;
@@ -138,11 +116,12 @@ const clearForm = () => {
   productImg.value = null;
 };
 
+//очистка поля Фото
 const removeFile = () => {
   productImg.value = null;
-  console.log(productImg.value);
 };
 
+//обновление значений, если карточка редактируется
 const checkEdit = () => {
   if (productsStore.isEdit) {
     productId.value = productsStore.editingProduct[0].id;
@@ -173,13 +152,22 @@ const checkEdit = () => {
   }
 };
 
+//при измении isEdit обновляются все значения переменных
 watch(
   () => productsStore.isEdit,
   (newVal) => {
     isEdit.value = newVal;
-    checkEdit();
+    checkEdit(
+      productName.value,
+      productPrice.value,
+      productDescr.value,
+      errorPrice.value,
+      errorName.value,
+      productImg.value
+    );
   }
 );
+//ловим айди редактируемой карточки
 watch(
   () => productsStore.editId,
   (newVal) => {
@@ -193,7 +181,7 @@ watch(
   <div class="aside">
     <div class="aside__inner">
       <h3 class="aside__title">
-        {{ isEdit ? "Редактирование" : "Добавление" }} товара
+        {{ props.formHeader }}
       </h3>
       <p class="aside__descr">Заполните все обязательные поля с *</p>
       <form class="aside__form">
@@ -240,20 +228,18 @@ watch(
           :isGood="!!productDescr"
         />
       </form>
-      <!--
-      знаю, что ниже в Button функцию правильнее будет передать через emit, но тернарный оператор почему-то не срабавыает в таком случае
-      -->
+      
       <Button
         class="aside__form-btn"
         :disabled="isDisabled"
         :isDisabled="isDisabled"
-        :submit="isEdit ? putData : postData"
-        >{{ isEdit ? "Редактировать товар" : "Добавить товар" }}</Button
+        @handle-submit="handleSubmit"
+        >{{ buttonText }}</Button
       >
       <Button
         class="aside__form-btn"
         v-if="isEdit"
-        :submit="productsStore.cancelEdit"
+        @handle-submit="productsStore.cancelEdit"
         isCancel
         >Отменить редактирование</Button
       >
@@ -261,5 +247,4 @@ watch(
   </div>
 </template>
 
-<style lang="scss" src="./Aside.scss" />
-
+<style lang="scss" src="./Form.scss" />
